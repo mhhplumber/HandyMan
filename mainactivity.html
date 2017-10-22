@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>find skilled workers</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -9,13 +9,54 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script>
+
+    var vocations = [false, false, false, false, false, false, false]; 
+
     $(document).ready(function(){
-        $('#laborer').hide();
-        $('#laborer_toggle').on('click', function(){
-            $('#laborer').toggle();
-            $('#user').toggle();
+        $('*#laborer').hide();
+        $('*#laborer_toggle').on('click', function(){
+            $('*#laborer').toggle();
+            $('*#user').toggle();
+        });
+
+        $('body').on('click', function(){
+          $('.jumbotron text-center').hide(1000);
+        });
+
+        $('*#t0').on('click', function(){
+            vocations[0] = !vocations[0];
+        });
+
+        $('*#t1').on('click', function(){
+            vocations[1] = !vocations[1];
+        });
+
+        $('*#t2').on('click', function(){
+            vocations[2] = !vocations[2];
+        });
+
+        $('*#t3').on('click', function(){
+            vocations[3] = !vocations[3];
+        });
+
+        $('*#t4').on('click', function(){
+            vocations[4] = !vocations[4];
+        });
+
+        $('*#t5').on('click', function(){
+            vocations[5] = !vocations[5];
+        });
+
+        $('*#t6').on('click', function(){
+            vocations[6] = !vocations[6];
         });
     });
+
+    function send(){
+
+    };
+
+
   </script>
   <style type="text/css">
 
@@ -81,50 +122,50 @@
     }
   </style>
 </head>
-<body>
+<body style="background-color:#dcd">
 
-<div class="jumbotron text-center">
+<div class="jumbotron text-center" style="background-image:url(http://www.hillwoodproducts.com/wp-content/uploads/2015/03/wood1.jpg);">
   <h1>HandyMan</h1>
   <p>See your fantasies fulfilled</p> 
 </div>
   
-<div class="container">
+<div class="container" style="background-color:#dcd">
   <div class="row">
     <div class="col-sm-4">
         <div id="user">
           <h3>Find a skilled worker</h3>
           <label class="form-check-label">
-            <input type="checkbox" class="form-check-input">
+            <input type="checkbox" id="t0" class="form-check-input">
               Plumbing
           </label>
           <br>
           <label class="form-check-label">
-            <input type="checkbox" class="form-check-input">
+            <input type="checkbox" id="t1" class="form-check-input">
               General Electronics
           </label>
           <br>
           <label class="form-check-label">
-            <input type="checkbox" class="form-check-input">
+            <input type="checkbox" id="t2" class="form-check-input">
               Computers
           </label>
           <br>
           <label class="form-check-label">
-            <input type="checkbox" class="form-check-input">
+            <input type="checkbox" id="t3" class="form-check-input">
               Automotive
           </label>
           <br>
           <label class="form-check-label">
-            <input type="checkbox" class="form-check-input">
+            <input type="checkbox" id="t4" class="form-check-input">
               Electrical(Home)
           </label>
           <br>
           <label class="form-check-label">
-            <input type="checkbox" class="form-check-input">
+            <input type="checkbox" id="t5" class="form-check-input">
               Landscaping
           </label>
           <br>
           <label class="form-check-label">
-            <input type="checkbox" class="form-check-input">
+            <input type="checkbox" id="t6" class="form-check-input">
               Home Improvement
           </label>
           <div class="form-group">
@@ -135,37 +176,37 @@
         <div id="laborer">
           <h3>Start finding work</h3>
           <label class="form-check-label">
-            <input type="checkbox" class="form-check-input">
+            <input type="checkbox" id="t0" class="form-check-input">
               Plumbing
           </label>
           <br>
           <label class="form-check-label">
-            <input type="checkbox" class="form-check-input">
+            <input type="checkbox" id="t1" class="form-check-input">
               General Electronics
           </label>
           <br>
           <label class="form-check-label">
-            <input type="checkbox" class="form-check-input">
+            <input type="checkbox" id="t2" class="form-check-input">
               Computers
           </label>
           <br>
           <label class="form-check-label">
-            <input type="checkbox" class="form-check-input">
+            <input type="checkbox" id="t3" class="form-check-input">
               Automotive
           </label>
           <br>
           <label class="form-check-label">
-            <input type="checkbox" class="form-check-input">
+            <input type="checkbox" id="t4" class="form-check-input">
               Electrical(Home)
           </label>
           <br>
           <label class="form-check-label">
-            <input type="checkbox" class="form-check-input">
+            <input type="checkbox" id="t5" class="form-check-input">
               Landscaping
           </label>
           <br>
           <label class="form-check-label">
-            <input type="checkbox" class="form-check-input">
+            <input type="checkbox" id="t6" class="form-check-input">
               Home Improvement
           </label>
         </div>
@@ -178,8 +219,15 @@
 
     </div>
     <div class="panel">
-      <h3>MAP HERE</h3>
-      <iframe src=""></iframe>
+      <h3 id="user">Workers in your area</h3>
+      <h3 id="laborer">Jobs in your area</h3>
+      <iframe
+        width="600px"
+        height="450px"
+        frameborder="0" style="border:0"
+        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDGkEI3D8z-a2fe_a28cEpWfByilg-Lq1Q
+          &q=Space+Needle,Seattle+WA" allowfullscreen>
+      </iframe>
 
     </div>
   </div>
