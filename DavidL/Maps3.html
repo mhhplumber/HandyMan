@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Place details</title>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
+  <h1> NewsMap </h1>
     <style>
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
@@ -12,46 +10,115 @@
       }
       /* Optional: Makes the sample page fill the window. */
       html, body {
-        height: 100%;
+        height: 95%;
         margin: 0;
         padding: 0;
       }
+      h4 {
+          font-family: "Verdana", Times, serif;
+          size: 20px;
+        }
+        p{
+          font-family: "Verdana", Times, serif;
+          size: 10px;
+        }
     </style>
-    <script>
-      // This example requires the Places library. Include the libraries=places
-      // parameter when you first load the API. For example:
-      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-
-      function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -33.866, lng: 151.196},
-          zoom: 15
-        });
-
-        var infowindow = new google.maps.InfoWindow();
-        var service = new google.maps.places.PlacesService(map);
-
-        service.getDetails({
-          placeId: 'ChIJN1t_tDeuEmsRUsoyG83frY4'
-        }, function(place, status) {
-          if (status === google.maps.places.PlacesServiceStatus.OK) {
-            var marker = new google.maps.Marker({
-              map: map,
-              position: place.geometry.location
-            });
-            google.maps.event.addListener(marker, 'click', function() {
-              infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
-                'Place ID: ' + place.place_id + '<br>' +
-                place.formatted_address + '</div>');
-              infowindow.open(map, this);
-            });
-          }
-        });
-      }
-    </script>
+      <link rel="stylesheet" type="text/css" href="main.css">
+  <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
+<title>News Maps</title>
   </head>
   <body>
     <div id="map"></div>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script>
+    /*var citymap = {
+      chicago: {
+        center: {lat: 41.878, lng: -87.629},
+        population: 2714856
+      },
+      newyork: {
+        center: {lat: 40.714, lng: -74.005},
+        population: 8405837
+      },
+      losangeles: {
+        center: {lat: 34.052, lng: -118.243},
+        population: 3857799
+      },
+      vancouver: {
+        center: {lat: 49.25, lng: -123.1},
+        population: 603502
+      }
+    };*/
+    //var fuckyou = JSON.parse('data.json');
+    var cities = ['North Korea', 'Sydney NSW, Australia', 'Saudi Arabia', 'China', 'Iran', "Los Angeles, CA, USA"];
+    var desc = ['North Korea\'s main spy agency has a special cell that is likely to have launched some of its most daring and successful cyberattacks, according to defectors, officials and internet security experts.', 'A man is charged with breaching an apprehended domestic violence order after a 21-year-old woman\'s death, which police say they are treating as suspicious.', 'Donald Trump is selling about $147 billion worth of military equipment to Saudi Arabia. It\'s about sending a message to their common enemies.', 'A spiralling oversupply of shared bikes in China is leading to huge piles of broken and unused bicycles in cities across the country.', 'Final results show incumbent president emphatically beating rival Ebrahim Raisi to extend his time in office.', 'A Melbourne-bound Qantas flight carrying nearly 500 passengers is forced to turn back to Los Angeles after an engine fails, appearing to spark mid-air.'];
+    var title = ['North Korea\'s Unit 180, the cyber warfare cell that worries the West', 'Young woman dies in Sydney\'s west, partner' + 'charged with breaching AVO', 'What\'s the goal of America\'s arms deal with Saudi Arabia?', 'China\'s oversupply of shared bikes clogging up city streets\'', 'Hassan Rouhani wins Iran\'s presidential election', 'Qantas flight from LA forced back after engine appears to spark'];
+    var url = ["http://www.abc.net.au/news/2017-05-21/north-koreas-unit-180-cyber-warfare-cell-hacking/8545106", 
+    "http://www.abc.net.au/news/2017-05-21/young-woman-dies-in-sydneys-west/8544942", "http://www.abc.net.au/news/2017-05-21/what-do-we-know-about-saudi-arabias-arms-deal-with-america/8544892", "http://www.abc.net.au/news/2017-05-21/chinas-oversupply-of-shared-bikes-clogging-up-city-streets/8543720", "http://www.aljazeera.com/news/2017/05/iran-election-president-hassan-rouhani-takes-lead-170520042625946.html","http://www.abc.net.au/news/2017-05-21/qantas-flight-from-la-forced-back-after-engine-appears-to-spark/8544842"];
+    var image = ["http://www.abc.net.au/news/image/8545124-1x1-700x700.jpg","http://www.abc.net.au/news/image/8545168-1x1-700x700.jpg" ,"http://www.abc.net.au/news/image/8544940-1x1-700x700.jpg","http://www.abc.net.au/news/image/8454848-1x1-700x700.jpg","http://www.aljazeera.com/mritems/Images/2017/5/20/f8301d142883478697f5ad1fa19115a6_18.jpg","http://www.abc.net.au/news/image/5696366-1x1-700x700.jpg"];
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 2.3,
+          center: {lat: 0, lng: 0},
+          mapTypeId: 'satellite'
+        });
+        // Create a <script> tag and set the USGS URL as the source.
+        //var script = document.createElement('script');
+        var infoWindow = new google.maps.InfoWindow({
+          /*content: '<h1 = id="article-name"> </h1>' +
+               '<img id="article-img">' +
+               '<p id="description"></p>' +
+               '<p id="link"><a></a></p>' +
+               '<p id="image-url"><a href=""></a></p>' +
+               '<p id="where-published"></p>' +
+               'Filler'*/
+        });
+        var geocoder = new google.maps.Geocoder();
+        for (var city in cities) {
+        geocoder.geocode({'address': cities[city]}, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            //map.setCenter(results[0].geometry.location);
+            var cityCircle = new google.maps.Circle({
+              strokeColor: 'white',
+              strokeOpacity: 0.8,
+              strokeWeight:1,
+              fillColor: 'green',
+              fillOpacity: 0.35,
+              map: map,
+              center: results[0].geometry.location,
+              radius: 200000
+            });
+            google.maps.event.addListener(cityCircle, 'mouseover', function(ev){
+                infoWindow.setPosition(ev.latLng); //<-- ev matches what you put ^ (mouse event)
+                infoWindow.setContent('<p>' + results[0].formatted_address + '</p>'
+                 + '<h4>' +  title[cities.indexOf(results[0].formatted_address)] + '</h4>' + '<p>' + desc[cities.indexOf(results[0].formatted_address)] + "<img width='80' align = right src=" + image[cities.indexOf(results[0].formatted_address)] + ">"
+                  + '</p>' + '<a href ='  + url[cities.indexOf(results[0].formatted_address)]  + '>Read more...</a>');
+                infoWindow.open(map);
+            });
+            //map.setZoom(10);
+          }
+        });
+      }
+        /*for (var city in citymap) {
+          var cityCircle = new google.maps.Circle({
+            strokeColor: 'black',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: 'red',
+            fillOpacity: 0.35,
+            map: map,
+            center: citymap[city].center,
+            radius: Math.sqrt(citymap[city].population) * 100
+          });
+          google.maps.event.addListener(cityCircle, 'mouseover', function(ev){
+              infoWindow.setPosition(ev.latLng); //<-- ev matches what you put ^ (mouse event)
+              infoWindow.open(map);
+          });
+        }*/
+      }
+
+    </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlYgpCNxABlDdGj7h9TPvwe_guM3tBTEo&callback=initMap">
     </script>

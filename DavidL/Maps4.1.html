@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>What am I doing</title>
+<title>Map</title>
 </head>
 <body>
 
@@ -31,7 +31,7 @@
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: -34.397, lng: 150.644},
-          zoom: 15
+          zoom: 5
         });
         infoWindow = new google.maps.InfoWindow;
 
@@ -41,10 +41,31 @@
               lat: position.coords.latitude,
               lng: position.coords.longitude
             };
-
+			var cities = ['North Korea', 'Sydney NSW, Australia', 'Saudi Arabia', 'China', 'Iran', "Los Angeles, CA, USA"];
+			var geocoder = new google.maps.Geocoder();
+					for (var city in cities) {
+					geocoder.geocode({'address': cities[city]}, function(results, status) {
+					  if (status == google.maps.GeocoderStatus.OK) {
+						//map.setCenter(results[0].geometry.location);
+						var cityCircle = new google.maps.Circle({
+						  strokeColor: 'white',
+						  strokeOpacity: 0.8,
+						  strokeWeight:1,
+						  fillColor: 'red',
+						  fillOpacity: 1.0,
+						  map: map,
+						  center: results[0].geometry.location,
+						  radius: 20000
+						});
+					  }
+					});
+				  }
+			
+			
             infoWindow.setPosition(pos);
             infoWindow.open(map);
             map.setCenter(pos);
+			
           }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
           });
@@ -59,10 +80,10 @@
         infoWindow.open(map);
       }
 	  
-	    var marker = new google.maps.Marker({
+	    var map = new google.maps.Map(document.getElementById('map'), {
 		position: pos,
 		map: map,
-		title: 'Hello World!'
+		title: 'Hello World!' 
   });
 	  
     </script>
