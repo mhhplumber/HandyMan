@@ -12,6 +12,21 @@
 
     var vocations = [false, false, false, false, false, false, false]; 
 
+    var x = [0,0];
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else { 
+            console.log("geolocation not supported");
+        }
+    }
+
+    function showPosition(position) {
+        x[0] = position.coords.latitude;
+        x[1] = position.coords.longitude;
+    }
+
     $(document).ready(function(){
         $('*#laborer').hide();
         $('*#laborer_toggle').on('click', function(){
@@ -52,10 +67,28 @@
         });
     });
 
+    function getAllIndexes(arr, val) {
+      var indexes = [], i = -1;
+      while ((i = arr.indexOf(val, i+1)) != -1){
+          indexes.push(i);
+      }
+      return indexes;
+    }
+
     function send(){
+      var xy = getLocation();
+      var vocs = getAllIndexes(vocations, true);
+      var job = '{'
+              + '"name" : "user1",'
+              + '"location" : "' + xy
+              + '","types" : "' + vocs
+              + '"}';
 
     };
 
+    function claimJob(job){
+
+    }
 
   </script>
   <style type="text/css">
@@ -122,14 +155,14 @@
     }
   </style>
 </head>
-<body style="background-color:#dcd">
+<body style="background-color:#8BC34A">
 
 <div class="jumbotron text-center" style="background-image:url(http://www.hillwoodproducts.com/wp-content/uploads/2015/03/wood1.jpg);">
   <h1>HandyMan</h1>
   <p>See your fantasies fulfilled</p> 
 </div>
   
-<div class="container" style="background-color:#dcd">
+<div class="container" style="background-color:#8BC34A">
   <div class="row">
     <div class="col-sm-4">
         <div id="laborer">
@@ -176,17 +209,20 @@
             <textarea class="form-control" rows="5" id="comment"></textarea>
           </div>
         </div>
+        <br>
+        <button type="button" class="btn btn-default">Submit</button>
         <h4>I am a worker</h4>
-        <label class="switch">
-        <input type="checkbox">
-        <span id="laborer_toggle" class="slider round"></span>
-        </label>
-        
+        <div class="container">
+          <label class="switch">
+            <input type="checkbox">
+            <span id="laborer_toggle" class="slider round"></span>
+          </label>
+        </div>
 
     </div>
-    <div class="panel">
-      <h3 id="user">Workers in your area</h3>
-      <h3 id="laborer">Jobs in your area</h3>
+    <div class="panel pull-right" style="background-color:#DCEDC8;border-radius: 7px;">
+      <h3 id="user" class="text-center">Workers in your area</h3>
+      <h3 id="laborer" class="text-center">Jobs in your area</h3>
       <iframe
         width="600px"
         height="450px"
